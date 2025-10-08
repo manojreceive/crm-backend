@@ -1,16 +1,16 @@
 import { EnvironmentConfig } from './environment.interface';
 
 export const environment: EnvironmentConfig = {
-  env: 'production',
-  port: 80,
+  env: 'development',
+  port: 3000,
   db: {
-    server: 'prod-db-server',
-    database: 'CRM_DB_PROD',
-    user: 'prod_user',
-    password: 'StrongProdPassword!'
+    server: '.\\SQLEXPRESS',
+    database: 'CRM_DB',
+    user: 'sa',
+    password: 'admin@123'
   },
   jwt: {
-    secret: process.env.JWT_SECRET || 'fallback-secret',
-    expiresIn: '6h'
+    secret: 'dev-secret-key',
+    expiresIn: '1d'
   }
 };

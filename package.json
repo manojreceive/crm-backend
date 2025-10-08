@@ -2,7 +2,11 @@
   "name": "crm-backend",
   "version": "1.0.0",
   "main": "src/main.ts",
-  "scripts": {},
+  "scripts": {
+    "start": "ts-node src/main.ts",
+    "build": "tsc",
+    "start:prod": "node dist/main.js"
+  },
   "dependencies": {
     "@nestjs/config": "^4.0.2",
     "@nestjs/typeorm": "^11.0.0",

@@ -1,10 +1,23 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import * as sql from 'mssql';
+import { environment } from '../environment/environment.dev';
 
 @Injectable()
 export class UsersService {
   private async getPool() {
-    return sql.connect(process.env.DB_CONN_STRING);
+    const db = environment.db;
+    if (!db || !db.server || !db.database || !db.user || !db.password) {
+      throw new InternalServerErrorException('Database configuration is not defined');
+    }
+    return await sql.connect({
+      server: db.server,
+      database: db.database,
+      user: db.user,
+      password: db.password,
+      options: {
+        encrypt: false
+      }
+    });
   }
 
   async findByEmail(email: string) {
@@ -25,7 +38,7 @@ export class UsersService {
         INNER JOIN Roles r ON ur.RoleId = r.RoleId
         WHERE ur.UserId = @userId
       `);
-    return result.recordset.map(r => r.RoleName);
+  return result.recordset.map((r: { RoleName: string }) => r.RoleName);
   }
 
   async getUserPermissions(userId: number) {
@@ -40,6 +53,6 @@ export class UsersService {
         INNER JOIN Permissions p ON p.PermissionId = rp.PermissionId
         WHERE ur.UserId = @userId
       `);
-    return result.recordset.map(p => p.Code);
+  return result.recordset.map((p: { Code: string }) => p.Code);
   }
 }

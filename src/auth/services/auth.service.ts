@@ -12,6 +12,9 @@ export class AuthService {
 
   async validateUser(email: string, password: string) {
     const user = await this.usersService.findByEmail(email);
+    //console.log(user);
+    //debugger;
+    //console.warn( bcrypt.compare(password, user.PasswordHash))
     if (user && await bcrypt.compare(password, user.PasswordHash)) {
       // fetch roles + permissions
       const roles = await this.usersService.getUserRoles(user.UserId);
@@ -19,6 +22,12 @@ export class AuthService {
 
       const { PasswordHash, ...result } = user;
       return { ...result, roles, permissions };
+    }
+    else{
+      const bcrypt = require('bcryptjs');
+      const hash = await bcrypt.hash(password, 10);
+      console.warn("new pass harsh: " + hash);
+      console.warn("saved pass harsh: " + user.PasswordHash);
     }
     return null;
   }

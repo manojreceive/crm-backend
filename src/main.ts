@@ -2,6 +2,12 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as dotenv from 'dotenv';
+const express = require('express');
+const app = express();
+
+// Enable the morgan middleware
+
+
 
 dotenv.config();
 

@@ -1,0 +1,1 @@
+# Prisma DB folder (optional)

@@ -1,0 +1,1 @@
+// Validation schema for config

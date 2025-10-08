@@ -1,0 +1,15 @@
+{
+  "name": "crm-backend",
+  "version": "1.0.0",
+  "main": "src/main.ts",
+  "scripts": {},
+  "dependencies": {
+    "@nestjs/config": "^4.0.2",
+    "@nestjs/typeorm": "^11.0.0",
+    "mssql": "^11.0.1",
+    "typeorm": "^0.3.27"
+  },
+  "devDependencies": {
+    "@types/node": "^24.5.2"
+  }
+}
